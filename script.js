@@ -33,13 +33,34 @@ var view = {
 	}
 };
 
-controller.getData.then(function(result){view.init(result.stations)});
+var stationsList;
 
-// var player;
-// function onYouTubeIframeAPIReady() {
-//     player = new YT.Player('player', {
-//         height: '390',
-//         width: '640',
-//         videoId: 'M7lc1UVf-VE'
-//     });
-// };
+controller.getData.then(function(result){
+	stationsList = result.stations;
+	// view.init(stationsList)
+});
+
+var playerController = {
+	player: '',
+	init: function() {
+		this.player = new YT.Player('player', {
+			height: '390',
+	        width: '640',
+	        videoId: playerController.getRandomTrack()
+	    })
+    },
+    getRandomTrack: function() {
+    	var randomStation = Math.floor(Math.random() * stationsList.length);
+    	console.info(randomStation);
+    	console.log('Random station: ' + stationsList[randomStation].name);
+    	var randomTrack = Math.floor(Math.random() * stationsList[randomStation].tracks.length);
+    	console.info(randomTrack);
+    	console.log('Random track: ' + stationsList[randomStation].tracks[randomTrack].artist + ' - ' + stationsList[randomStation].tracks[randomTrack].title);
+    	return stationsList[randomStation].tracks[randomTrack].src;
+    }
+
+};
+
+function onYouTubeIframeAPIReady() {
+	playerController.init();
+};
