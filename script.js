@@ -57,6 +57,7 @@ controller.getData.then(function(result){
 
 var playerController = {
 	player: '',
+	currentStation: {},
 	init: function() {
 		this.player = new YT.Player('player', {
 			height: '390',
@@ -74,28 +75,38 @@ var playerController = {
     getStationById: function(stationId) {
 		return stationsList[stationId];
     },
-    getRandomTrackSrc: function(stationObject) {
-    	if(!stationObject) {
-    		stationObject = this.getRandomStation();
+    getRandomTrackSrc: function(station) {
+    	if(!station) {
+    		station = this.currentStation = this.getRandomStation();
     	}
-    	var randomTrack = Math.floor(Math.random() * stationObject.tracks.length);
-    	return stationObject.tracks[randomTrack].src;
+    	var randomTrack = Math.floor(Math.random() * station.tracks.length);
+    	return station.tracks[randomTrack].src;
     },
     playStation: function(station) {
-    	var currentStation;
     	if (typeof(station) === 'object') {
-			currentStation = station;
+			this.currentStation = station;
     	} else if (typeof(station) === 'string' || typeof(station) === 'number') {
-    		currentStation = this.getStationById(station);
+    		this.currentStation = this.getStationById(station);
     	} else {
     		throw new Error('Invalid type of station');
     	}
-    	this.player.loadVideoById(this.getRandomTrackSrc(currentStation));
-
+    	this.player.loadVideoById(this.getRandomTrackSrc(this.currentStation));
     	//TODO: write error catcher for broken tracks without 'src' param
-    }
+    },
+    playerStateHandler: function(status) {
+    	switch(status.data) {
+    		case 0:
+				playerController.playStation(playerController.currentStation)
+				break;
+    	}
+    	console.log('Video status: ' + status.data);
+    },
+	playNextTrack: function() {
+		this.playStation(this.currentStation);
+	}
 };
 
 function onYouTubeIframeAPIReady() {
 	playerController.init();
+	playerController.player.addEventListener('onStateChange', playerController.playerStateHandler);
 };
