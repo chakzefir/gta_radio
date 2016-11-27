@@ -13,7 +13,7 @@ var controller = {
 		request.send();
 	}),
 	requestError: function (errorText) {
-		console.warn(errorText);
+		throw new Error(errorText);
 	    document.writeln('Player is broken please connect <a href="mailto:4uk93@mail.ru">chakzefir</a>')
 	}
 };
@@ -27,17 +27,32 @@ var view = {
 				el: document.createElement("p"),
 				content: document.createTextNode(stations[station].name)
 			};
-			currentStation.el.appendChild(currentStation.content)
+			currentStation.el.className = 'station';
+			currentStation.el.appendChild(currentStation.content);
+			currentStation.el.setAttribute('data-id', station);
 			interface.appendChild(currentStation.el);
 		}
 	}
 };
 
+var model = {
+	init: function () {
+		var stationsNodeList = document.querySelectorAll('.station');
+
+		for(var i = 0; i < stationsNodeList.length; i++) {
+			stationsNodeList[i].addEventListener('click', function() {
+				playerController.playStation(this.getAttribute('data-id'));
+			});
+		}
+	}
+}
+
 var stationsList;
 
 controller.getData.then(function(result){
 	stationsList = result.stations;
-	// view.init(stationsList)
+	view.init(stationsList);
+	model.init();
 });
 
 var playerController = {
@@ -46,19 +61,39 @@ var playerController = {
 		this.player = new YT.Player('player', {
 			height: '390',
 	        width: '640',
-	        videoId: playerController.getRandomTrack()
+	        videoId: playerController.getRandomTrackSrc(),
+	        playerVars: {
+				autoplay: 1
+			},
 	    })
     },
-    getRandomTrack: function() {
-    	var randomStation = Math.floor(Math.random() * stationsList.length);
-    	console.info(randomStation);
-    	console.log('Random station: ' + stationsList[randomStation].name);
-    	var randomTrack = Math.floor(Math.random() * stationsList[randomStation].tracks.length);
-    	console.info(randomTrack);
-    	console.log('Random track: ' + stationsList[randomStation].tracks[randomTrack].artist + ' - ' + stationsList[randomStation].tracks[randomTrack].title);
-    	return stationsList[randomStation].tracks[randomTrack].src;
-    }
+    getRandomStation: function() {
+		var randomStation = Math.floor(Math.random() * stationsList.length);
+    	return stationsList[randomStation];
+    },
+    getStationById: function(stationId) {
+		return stationsList[stationId];
+    },
+    getRandomTrackSrc: function(stationObject) {
+    	if(!stationObject) {
+    		stationObject = this.getRandomStation();
+    	}
+    	var randomTrack = Math.floor(Math.random() * stationObject.tracks.length);
+    	return stationObject.tracks[randomTrack].src;
+    },
+    playStation: function(station) {
+    	var currentStation;
+    	if (typeof(station) === 'object') {
+			currentStation = station;
+    	} else if (typeof(station) === 'string' || typeof(station) === 'number') {
+    		currentStation = this.getStationById(station);
+    	} else {
+    		throw new Error('Invalid type of station');
+    	}
+    	this.player.loadVideoById(this.getRandomTrackSrc(currentStation));
 
+    	//TODO: write error catcher for broken tracks without 'src' param
+    }
 };
 
 function onYouTubeIframeAPIReady() {
