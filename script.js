@@ -1,4 +1,4 @@
-var controller = {
+var model = {
 	getData: new Promise(function (resolve, reject) {
 		var request = new XMLHttpRequest();
 		request.open('GET', '/tracklist.json', true);
@@ -7,7 +7,7 @@ var controller = {
 		  if (request.status >= 200 && request.status < 400) {
 		    resolve(JSON.parse(this.response));
 		  } else {
-		    controller.requestError(this.statusText);
+		    model.requestError(this.statusText);
 		  }
 		};
 		request.send();
@@ -35,7 +35,7 @@ var view = {
 	}
 };
 
-var model = {
+var controller = {
 	init: function () {
 		var stationsNodeList = document.querySelectorAll('.station');
 
@@ -49,10 +49,10 @@ var model = {
 
 var stationsList;
 
-controller.getData.then(function(result){
+model.getData.then(function(result){
 	stationsList = result.stations;
 	view.init(stationsList);
-	model.init();
+	controller.init();
 });
 
 var playerController = {
