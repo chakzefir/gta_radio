@@ -93,6 +93,9 @@ var playerController = {
     	this.player.loadVideoById(this.getRandomTrackSrc(this.currentStation));
     	//TODO: write error catcher for broken tracks without 'src' param
     },
+	playNextTrack: function() {
+		this.playStation(this.currentStation);
+	},
     playerStateHandler: function(status) {
     	switch(status.data) {
     		case 0:
@@ -101,12 +104,13 @@ var playerController = {
     	}
     	console.log('Video status: ' + status.data);
     },
-	playNextTrack: function() {
-		this.playStation(this.currentStation);
-	}
+    playerErrorHandler: function() {
+    	playerController.playNextTrack();
+    }
 };
 
 function onYouTubeIframeAPIReady() {
 	playerController.init();
 	playerController.player.addEventListener('onStateChange', playerController.playerStateHandler);
+	playerController.player.addEventListener('onError', playerController.playerErrorHandler);
 };
