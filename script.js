@@ -58,6 +58,7 @@ model.getData.then(function(result){
 var playerController = {
 	player: '',
 	currentStation: {},
+	previousTrackId: 123,
 	init: function() {
 		this.player = new YT.Player('player', {
 			height: '390',
@@ -79,8 +80,14 @@ var playerController = {
     	if(!station) {
     		station = this.currentStation = this.getRandomStation();
     	}
-    	var randomTrack = Math.floor(Math.random() * station.tracks.length);
-    	return station.tracks[randomTrack].src;
+    	var randomTrackId = Math.floor(Math.random() * station.tracks.length);
+    	if (randomTrackId === this.previousTrackId) {
+    		console.info('track is repeated');
+    		this.getRandomTrackSrc(station);
+    	} else {
+    		this.previousTrackId = randomTrackId;
+			return station.tracks[randomTrackId].src;
+    	}
     },
     playStation: function(station) {
     	if (typeof(station) === 'object') {
