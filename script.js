@@ -20,9 +20,9 @@ var model = {
 
 var view = {
 	nodes: {
-		'stationNameContainer': document.querySelector('.stationName'),
-		'artistNameContainer': document.querySelector('.artistName'),
-		'trackNameContainer': document.querySelector('.trackName'),
+		'stationNameContainer': document.querySelector('.station-name'),
+		'artistNameContainer': document.querySelector('.artist-name'),
+		'trackNameContainer': document.querySelector('.track-name'),
 	},
 	init: function (stations) {
 		var interface = document.querySelector('#interface');
@@ -57,27 +57,37 @@ var controller = {
 	}
 }
 
-var stationsList;
 
-model.getData.then(function(result){
-	stationsList = result.stations;
-	view.init(stationsList);
-	controller.init();
-});
+var	playerStateHandler = function(status) {
+	console.log('Video status: ' + status.data);
+	switch(status.data) {
+		case 0:
+			playerController.playStation(playerController.currentStation)
+			break;
+	}
+};
+
+var playerErrorHandler = function() {
+	playerController.playStation(playerController.currentStation);
+};
 
 var playerController = {
 	player: '',
+	prefferableQuality: 'small',
+	previousTrackId: 0,
 	currentStation: {},
-	previousTrackId: 123,
 	init: function() {
+		player_controller = this;
 		this.player = new YT.Player('player', {
-			height: '390',
-	        width: '640',
-	        videoId: playerController.getRandomTrackSrc(),
-	        playerVars: {
-				autoplay: 1
+			events: {
+				'onReady': function(){
+				    player_controller.currentStation = player_controller.getRandomStation();
+				    player_controller.playStation(player_controller.currentStation);
+				},
+				'onStateChange': playerStateHandler,
+				'onError': playerErrorHandler,
 			},
-	    })
+	    });
     },
     getRandomStation: function() {
 		var randomStation = Math.floor(Math.random() * stationsList.length);
@@ -87,13 +97,15 @@ var playerController = {
 		return stationsList[stationId];
     },
     getRandomTrackSrc: function(station) {
-    	if(!station) {
-    		station = this.currentStation = this.getRandomStation();
-    	}
     	var randomTrackId = Math.floor(Math.random() * station.tracks.length);
+
+    	//Check to avoid track repeat and null src tracks
     	if (randomTrackId === this.previousTrackId) {
     		// console.info('track is repeated');
     		this.getRandomTrackSrc(station);
+    	} else if (station.tracks[randomTrackId].src.length < 10) {
+    		// console.info('track src is null');
+    		this.getRandomTrackSrc(station)
     	} else {
     		this.previousTrackId = randomTrackId;
     		view.displayTrackInfo(station.name, station.tracks[randomTrackId].artist, station.tracks[randomTrackId].title);
@@ -108,27 +120,22 @@ var playerController = {
     	} else {
     		throw new Error('Invalid type of station');
     	}
-    	this.player.loadVideoById(this.getRandomTrackSrc(this.currentStation));
-    	//TODO: write error catcher for broken tracks without 'src' param
+    	return this.player.loadVideoById(this.getRandomTrackSrc(this.currentStation), 0, this.prefferableQuality);
     },
-	playNextTrack: function() {
-		this.playStation(this.currentStation);
-	},
-    playerStateHandler: function(status) {
-    	switch(status.data) {
-    		case 0:
-				playerController.playStation(playerController.currentStation)
-				break;
-    	}
-    	// console.log('Video status: ' + status.data);
-    },
-    playerErrorHandler: function() {
-    	playerController.playNextTrack();
+    pleasePlay: function() {
+    	var self = this;
+    	self.player.playVideo();
     }
 };
 
+var stationsList;
+
 function onYouTubeIframeAPIReady() {
-	playerController.init();
-	playerController.player.addEventListener('onStateChange', playerController.playerStateHandler);
-	playerController.player.addEventListener('onError', playerController.playerErrorHandler);
+	model.getData.then(function(result){
+		stationsList = result.stations;
+		view.init(stationsList);
+		controller.init();
+
+		playerController.init();
+	});
 };
