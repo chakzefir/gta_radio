@@ -7,18 +7,23 @@ var model = {
 		  if (request.status >= 200 && request.status < 400) {
 		    resolve(JSON.parse(this.response));
 		  } else {
-		    model.requestError(this.statusText);
+		    model.throwError(this.statusText);
 		  }
 		};
 		request.send();
 	}),
-	requestError: function (errorText) {
+	throwError: function (errorText) {
 		throw new Error(errorText);
 	    document.writeln('Player is broken please connect <a href="mailto:4uk93@mail.ru">chakzefir</a>')
 	}
 };
 
 var view = {
+	nodes: {
+		'stationNameContainer': document.querySelector('.stationName'),
+		'artistNameContainer': document.querySelector('.artistName'),
+		'trackNameContainer': document.querySelector('.trackName'),
+	},
 	init: function (stations) {
 		var interface = document.querySelector('#interface');
 
@@ -32,7 +37,12 @@ var view = {
 			currentStation.el.setAttribute('data-id', station);
 			interface.appendChild(currentStation.el);
 		}
-	}
+	},
+	displayTrackInfo: function(stationName, artistName, trackName) {
+		this.nodes.stationNameContainer.innerText = stationName;
+		this.nodes.artistNameContainer.innerText = artistName;
+		this.nodes.trackNameContainer.innerText = trackName;
+	},
 };
 
 var controller = {
@@ -82,10 +92,11 @@ var playerController = {
     	}
     	var randomTrackId = Math.floor(Math.random() * station.tracks.length);
     	if (randomTrackId === this.previousTrackId) {
-    		console.info('track is repeated');
+    		// console.info('track is repeated');
     		this.getRandomTrackSrc(station);
     	} else {
     		this.previousTrackId = randomTrackId;
+    		view.displayTrackInfo(station.name, station.tracks[randomTrackId].artist, station.tracks[randomTrackId].title);
 			return station.tracks[randomTrackId].src;
     	}
     },
@@ -109,7 +120,7 @@ var playerController = {
 				playerController.playStation(playerController.currentStation)
 				break;
     	}
-    	console.log('Video status: ' + status.data);
+    	// console.log('Video status: ' + status.data);
     },
     playerErrorHandler: function() {
     	playerController.playNextTrack();
