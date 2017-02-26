@@ -3,23 +3,19 @@
 <head>
 	<meta charset="UTF-8">
 	<title>GTA Radio</title>
+	<link rel="stylesheet" href="./style.css">
 </head>
 <body>
-	<h1>radio</h1>
-	<h3 class="stationName"></h3>
-	<p class="artistName"></p>
-	<p class="trackName"></p>
-	<style>
-		.station {
-			cursor: pointer;
-		}
-		div {
-			display: inline-block;
-			margin: 0 60px;
-		}
-	</style>
+	<div class="track-info">
+		<h3 class="station-name"></h3>
+		<p class="artist-name"></p>
+		<p class="track-name"></p>
+	</div>
+	
 	<div id="interface"></div>
+
 	<div id="player"></div>
+
 	<script src="https://www.youtube.com/iframe_api"></script>
 	<script src="script.js"></script>
 </body>
