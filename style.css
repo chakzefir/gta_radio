@@ -1,3 +1,8 @@
+body {
+	font-family: monospace;
+	font-size: 15px;
+}
+
 #player {
 	position: absolute;
 	bottom: 0;
@@ -24,4 +29,6 @@
 
 .station {
 	cursor: pointer;
+	width: 150px;
+	height: 150px;
 }
