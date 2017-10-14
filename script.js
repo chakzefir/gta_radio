@@ -26,17 +26,20 @@ var view = {
 	},
 	init: function (stations) {
 		var interface = document.querySelector('#interface');
+        var positionHelper = new PositionHelper();
 
 		for (var station in stations) {
 			currentStation = {
-				el: document.createElement("p"),
-				content: document.createTextNode(stations[station].name)
+				el: document.createElement("div"),
+                html: "<span>" + stations[station].name + "</span>",
 			};
 			currentStation.el.className = 'station';
-			currentStation.el.appendChild(currentStation.content);
+            currentStation.el.innerHTML = currentStation.html;
 			currentStation.el.setAttribute('data-id', station);
 			interface.appendChild(currentStation.el);
 		}
+
+        positionHelper.init();
 	},
 	displayTrackInfo: function(stationName, artistName, trackName) {
 		this.nodes.stationNameContainer.innerText = stationName;

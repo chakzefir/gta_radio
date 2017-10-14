@@ -1,6 +1,13 @@
+:root {
+	--circle-size: 300px;
+	--station-size: 30px;
+}
+
 body {
 	font-family: monospace;
 	font-size: 15px;
+	background: #000;
+	color: #fff;
 }
 
 #player {
@@ -22,13 +29,36 @@ body {
 
 #please-play {
 	display: block;
-	width: 300px;
-	height: 300px;
+	width: var(--circle-size);
+	height: var(--circle-size);
 	background-color: red;
+}
+
+#interface {
+	width: var(--circle-size);
+	height: var(--circle-size);
+	border: 1px solid;
+	border-radius: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
 }
 
 .station {
 	cursor: pointer;
-	width: 150px;
-	height: 150px;
+	width: var(--circle-size);
+	position: absolute;
+	left: 0;
+	top: calc(50% - var(--station-size)/2);
+}
+
+.station > span {
+	float: right;
+	font-size: 0;
+	width: var(--station-size);
+	height: var(--station-size);
+	border-radius: var(--station-size);
 }
