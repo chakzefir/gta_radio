@@ -1,0 +1,10 @@
+{
+    "name": "gta_radio",
+    "author": "Chak Zefir <4uk93@mail.ru>",
+    "version": "0.1.0",
+    "homepage": "https://github.com/chakzefir/gta_radio",
+    "dependencies" : { 
+        "connect": "latest",
+        "serve-static": "latest"
+     }
+}
