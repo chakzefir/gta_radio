@@ -11,6 +11,7 @@ body {
 }
 
 #player {
+	display: none;
 	position: absolute;
 	bottom: 0;
 	right: 0;
@@ -24,10 +25,13 @@ body {
 	left: 0;
 	bottom: 0;
 	right: 0;
+	z-index: 5;
 	margin: auto;
-	width: 200px;
+	width: 300px;
 	height: 150px;
+	line-height: 2em;
 	text-align: center;
+	text-shadow: 0 0 4px #000;
 }
 
 #please-play {
@@ -49,11 +53,9 @@ body {
 }
 
 .station {
-	width: var(--circle-size);
-	height: var(--station-size);
 	position: absolute;
-	left: 0;
-	top: calc(50% - var(--station-size)/2);
+	top: 50%;
+	left: 50%;
 }
 
 .station > span {
@@ -68,7 +70,7 @@ body {
 	transition: opacity 0.3s ease border 0.2s ease-in 0.3s;
 	cursor: pointer;
 	position: absolute;
-	right: 0;
+	right: calc(var(--circle-size)/2 * -1);
 	top: 0;
 	z-index: 2;
 }
@@ -79,4 +81,5 @@ body {
 
 .station.active > span {
 	opacity: 1;
+	pointer-events: none;
 }

@@ -29,7 +29,6 @@ var view = {
         var positionHelper = new PositionHelper();
 
 		for (var station in stations) {
-            console.log(station);
 			currentStation = {
 				el: document.createElement("div"),
                 html: "<span>" + stations[station].name + "</span>",
@@ -57,11 +56,11 @@ var view = {
 
 var controller = {
 	init: function () {
-		var stationsNodeList = document.querySelectorAll('.station');
+		var stationsNodeList = document.querySelectorAll('.station > span');
 
 		for(var i = 0; i < stationsNodeList.length; i++) {
 			stationsNodeList[i].addEventListener('click', function() {
-				playerController.playStation(this.getAttribute('data-id'));
+				playerController.playStation(this.parentElement.getAttribute('data-id'));
 			});
 		}
 	}
@@ -75,12 +74,14 @@ var	playerStateHandler = function(status) {
 			playerController.playStation(playerController.currentStation)
 			break;
         case 1:
+            tuningController.pause();
             console.info('track is playing');
             break;
         case 2:
             console.info('track stopped');
             break;
         case 3:
+            tuningController.play();
             console.info('track is loading');
             break;
 
@@ -153,6 +154,16 @@ var playerController = {
     pleasePlay: function() {
     	var self = this;
     	self.player.playVideo();
+    }
+};
+
+var tuningController = {
+    tuningNode: document.querySelector('#tuning'),
+    play: function() {
+        this.tuningNode.play();
+    },
+    pause: function() {
+        this.tuningNode.pause();
     }
 };
 
