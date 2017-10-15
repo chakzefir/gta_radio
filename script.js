@@ -62,11 +62,21 @@ var controller = {
 
 
 var	playerStateHandler = function(status) {
-	console.log('Video status: ' + status.data);
+	// console.info('Video status: ' + status.data);
 	switch(status.data) {
 		case 0:
 			playerController.playStation(playerController.currentStation)
 			break;
+        case 1:
+            console.info('track is playing');
+            break;
+        case 2:
+            console.info('track stopped');
+            break;
+        case 3:
+            console.info('track is loading');
+            break;
+
 	}
 };
 

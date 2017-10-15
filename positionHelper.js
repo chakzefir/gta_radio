@@ -16,6 +16,4 @@ PositionHelper.prototype.init = function() {
         el.querySelector('span').style.transform  = 'rotate(' + degree + 'deg)';
         el.querySelector('span').style.background = 'rgb(90, 10, ' + i + '0)';
     });
-
-    // debugger
 }
