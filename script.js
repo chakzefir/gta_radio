@@ -29,13 +29,14 @@ var view = {
         var positionHelper = new PositionHelper();
 
 		for (var station in stations) {
+            console.log(station);
 			currentStation = {
 				el: document.createElement("div"),
                 html: "<span>" + stations[station].name + "</span>",
 			};
 			currentStation.el.className = 'station';
             currentStation.el.innerHTML = currentStation.html;
-			currentStation.el.setAttribute('data-id', station);
+			currentStation.el.setAttribute('data-id', stations[station].id);
 			interface.appendChild(currentStation.el);
 		}
 
@@ -46,6 +47,12 @@ var view = {
 		this.nodes.artistNameContainer.innerText = artistName;
 		this.nodes.trackNameContainer.innerText = trackName;
 	},
+    activeStation: function(stationId) {
+        if(document.querySelector('.station.active')) {
+            document.querySelector('.station.active').classList.remove('active');
+        }
+        document.querySelector('.station[data-id="' + stationId + '"]').classList.add('active');
+    }
 };
 
 var controller = {
@@ -114,10 +121,10 @@ var playerController = {
 
     	//Check to avoid track repeat and null src tracks
     	if (randomTrackId === this.previousTrackId) {
-    		// console.info('track is repeated');
+    		// console.warn('track is repeated');
     		this.getRandomTrackSrc(station);
     	} else if (station.tracks[randomTrackId].src.length < 10) {
-    		// console.info('track src is null');
+    		// console.warn('track src is null');
     		this.getRandomTrackSrc(station)
     	} else {
     		this.previousTrackId = randomTrackId;
@@ -126,13 +133,21 @@ var playerController = {
     	}
     },
     playStation: function(station) {
+        var stationId;
+        var trackId;
+
     	if (typeof(station) === 'object') {
 			this.currentStation = station;
+            stationId = station.id;
     	} else if (typeof(station) === 'string' || typeof(station) === 'number') {
     		this.currentStation = this.getStationById(station);
+            stationId = station;
     	} else {
     		throw new Error('Invalid type of station');
     	}
+        view.activeStation(stationId);
+        trackId = this.getRandomTrackSrc(this.currentStation);
+        console.info(stationId + '/' + trackId);
     	return this.player.loadVideoById(this.getRandomTrackSrc(this.currentStation), 0, this.prefferableQuality);
     },
     pleasePlay: function() {

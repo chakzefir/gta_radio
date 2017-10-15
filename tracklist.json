@@ -3,7 +3,7 @@
         {
             "name": "Blue Ark",
             "logo": "img/stations/Blue Ark.jpg",
-            "setID": 5,
+            "id": 0,
             "tracks": [
                 {
                     "src": "9eHnyWIz-PE",
@@ -80,7 +80,7 @@
         {
             "name": "Worldwide FM",
             "logo": "img/stations/Worldwide FM.jpg",
-            "setID": 5,
+            "id": 1,
             "tracks": [
                 {
                     "src": "XBvqn5ye9ag",
@@ -172,7 +172,7 @@
         {
             "name": "FlyLo FM",
             "logo": "img/stations/FlyLo FM.jpg",
-            "setID": 5,
+            "id": 2,
             "tracks": [
                 {
                     "src": "qaUTgjYWKXQ",
@@ -244,7 +244,7 @@
         {
             "name": "The LowDown 91.1",
             "logo": "img/stations/The LowDown 91.1.jpg",
-            "setID": 5,
+            "id": 3,
             "tracks": [
                 {
                     "src": "uoyuuOGkXlQ",
@@ -311,7 +311,7 @@
         {
             "name": "Radio Mirror Park",
             "logo": "img/stations/Radio Mirror Park.jpg",
-            "setID": 5,
+            "id": 4,
             "tracks": [
                 {
                     "src": "rH3r8h0pKYU",
@@ -423,7 +423,7 @@
         {
             "name": "Space 103.2",
             "logo": "img/stations/Space 103.2.jpg",
-            "setID": 5,
+            "id": 5,
             "tracks": [
                 {
                     "src": "PiC8MtWcQOg",
@@ -495,7 +495,7 @@
         {
             "name": "Vinewood Boulevard Radio",
             "logo": "img/stations/Vinewood Boulevard Radio.jpg",
-            "setID": 5,
+            "id": 6,
             "tracks": [
                 {
                     "src": "ke21kd4EJ2g",
@@ -562,7 +562,7 @@
         {
             "name": "Los Santos Rock Radio",
             "logo": "img/stations/Los Santos Rock Radio.jpg",
-            "setID": 5,
+            "id": 7,
             "tracks": [
                 {
                     "src": "LavRP20kWfM",
@@ -684,7 +684,7 @@
         {
             "name": "Non-Stop-Pop FM",
             "logo": "img/stations/Non-Stop-Pop FM.jpg",
-            "setID": 5,
+            "id": 8,
             "tracks": [
                 {
                     "src": "oi6nauA77zA",
@@ -771,7 +771,7 @@
         {
             "name": "Radio Los Santos",
             "logo": "img/stations/Radio Los Santos.jpg",
-            "setID": 5,
+            "id": 9,
             "tracks": [
                 {
                     "src": "",
@@ -853,7 +853,7 @@
         {
             "name": "Channel X",
             "logo": "img/stations/Channel X.jpg",
-            "setID": 5,
+            "id": 10,
             "tracks": [
                 {
                     "src": "ho8QVkJw0FQ",
@@ -915,7 +915,7 @@
         {
             "name": "Rebel Radio",
             "logo": "img/stations/Rebel Radio.jpg",
-            "setID": 5,
+            "id": 11,
             "tracks": [
                 {
                     "src": "ziZ3STu-uVo",
@@ -977,7 +977,7 @@
         {
             "name": "Soulwax FM",
             "logo": "img/stations/Soulwax FM.jpg",
-            "setID": 5,
+            "id": 12,
             "tracks": [
                 {
                     "src": "lmqbQyDZ9nQ",
@@ -1074,7 +1074,7 @@
         {
             "name": "East Los FM",
             "logo": "img/stations/East Los FM.jpg",
-            "setID": 5,
+            "id": 13,
             "tracks": [
                 {
                     "src": "A-uZLhEcp0c",
@@ -1146,7 +1146,7 @@
         {
             "name": "West Coast Classics",
             "logo": "img/stations/West Coast Classics.jpg",
-            "setID": 5,
+            "id": 14,
             "tracks": [
                 {
                     "src": "n6qeN2sfgKs",
@@ -1234,52 +1234,6 @@
                     "title": "So You Want to Be a Gangster"
                 }
             ]
-        }
-
-
-    ],
-    "sets": [
-        {
-            "id": 5,
-            "title": "GTA V",
-            "logo": "img/gta_logos/gta_5",
-            "backgrounds": []
-        },
-        {
-            "id": 4,
-            "title": "GTA IV",
-            "logo": "img/gta_logos/gta_4",
-            "backgrounds": []
-        },
-        {
-            "id": "SA",
-            "title": "GTA San Andreas",
-            "logo": "img/gta_logos/san_andreas",
-            "backgrounds": []
-        },
-        {
-            "id": "VC",
-            "title": "GTA Vice City",
-            "logo": "img/gta_logos/vice_city",
-            "backgrounds": []
-        },
-        {
-            "id": 3,
-            "title": "GTA III",
-            "logo": "img/gta_logos/gta_3",
-            "backgrounds": []
-        },
-        {
-            "id": 2,
-            "title": "GTA II",
-            "logo": "img/gta_logos/gta_2",
-            "backgrounds": []
-        },
-        {
-            "id": 1,
-            "title": "GTA I",
-            "logo": "img/gta_logos/gta_1",
-            "backgrounds": []
         }
     ]
 }
