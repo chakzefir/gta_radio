@@ -1,22 +1,22 @@
-var model = {
-	getData: new Promise(function (resolve, reject) {
-		var request = new XMLHttpRequest();
-		request.open('GET', '/tracklist.json', true);
+// var model = {
+// 	getData: new Promise(function (resolve, reject) {
+// 		var request = new XMLHttpRequest();
+// 		request.open('GET', '/tracklist.json', true);
 
-		request.onload = function() {
-		  if (request.status >= 200 && request.status < 400) {
-		    resolve(JSON.parse(this.response));
-		  } else {
-		    model.throwError(this.statusText);
-		  }
-		};
-		request.send();
-	}),
-	throwError: function (errorText) {
-		throw new Error(errorText);
-	    document.writeln('Player is broken please connect <a href="mailto:4uk93@mail.ru">chakzefir</a>')
-	}
-};
+// 		request.onload = function() {
+// 		  if (request.status >= 200 && request.status < 400) {
+// 		    resolve(JSON.parse(this.response));
+// 		  } else {
+// 		    model.throwError(this.statusText);
+// 		  }
+// 		};
+// 		request.send();
+// 	}),
+// 	throwError: function (errorText) {
+// 		throw new Error(errorText);
+// 	    document.writeln('Player is broken please connect <a href="mailto:4uk93@mail.ru">chakzefir</a>')
+// 	}
+// };
 
 var view = {
 	nodes: {
@@ -170,11 +170,12 @@ var tuningController = {
 var stationsList;
 
 function onYouTubeIframeAPIReady() {
-	model.getData.then(function(result){
-		stationsList = result.stations;
+	// model.getData.then(function(result){
+		// stationsList = result.stations;
+        stationsList = tracklist.stations;
 		view.init(stationsList);
 		controller.init();
 
 		playerController.init();
-	});
+	// });
 };
