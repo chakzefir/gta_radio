@@ -149,7 +149,7 @@ var playerController = {
         view.activeStation(stationId);
         trackId = this.getRandomTrackSrc(this.currentStation);
         console.info(stationId + '/' + trackId);
-    	return this.player.loadVideoById(this.getRandomTrackSrc(this.currentStation), 0, this.prefferableQuality);
+    	return this.player.loadVideoById(trackId, 0, this.prefferableQuality);
     },
     pleasePlay: function() {
     	var self = this;
