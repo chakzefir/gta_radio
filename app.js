@@ -56,14 +56,23 @@ var view = {
 
 var controller = {
 	init: function () {
-		var stationsNodeList = document.querySelectorAll('.station > span');
+		this.stationsEventListener();
+        this.buttonEventListener();
+	},
+    stationsEventListener: function() {
+        var stationsNodeList = document.querySelectorAll('.station > span');
 
-		for(var i = 0; i < stationsNodeList.length; i++) {
-			stationsNodeList[i].addEventListener('click', function() {
-				playerController.playStation(this.parentElement.getAttribute('data-id'));
-			});
-		}
-	}
+        for(var i = 0; i < stationsNodeList.length; i++) {
+            stationsNodeList[i].addEventListener('click', function() {
+                playerController.playStation(this.parentElement.getAttribute('data-id'));
+            });
+        }
+    },
+    buttonEventListener: function() {
+        document.querySelector('#play_video').addEventListener('click', function() {
+            playerController.player.playVideo();
+        });
+    }
 }
 
 
@@ -160,9 +169,11 @@ var playerController = {
 var tuningController = {
     tuningNode: document.querySelector('#tuning'),
     play: function() {
+        return true;
         this.tuningNode.play();
     },
     pause: function() {
+        return true;
         this.tuningNode.pause();
     }
 };
@@ -170,12 +181,14 @@ var tuningController = {
 var stationsList;
 
 function onYouTubeIframeAPIReady() {
+    var modal = new Modal();
+    modal.init();
 	// model.getData.then(function(result){
 		// stationsList = result.stations;
         stationsList = tracklist.stations;
 		view.init(stationsList);
 		controller.init();
 
-		playerController.init();
+		// playerController.init();
 	// });
 };

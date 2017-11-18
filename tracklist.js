@@ -74,6 +74,11 @@ var tracklist = {
                     "src": "H3uKvMdWx-E",
                     "artist": "Yellowman",
                     "title": "Nobody Move, Nobody Get Hurt"
+                },
+                {
+                    "src": "YWeUR5vQ5Sw",
+                    "artist": "M.I.A.",
+                    "title": "Bad Girls",
                 }
             ]
         },
@@ -687,12 +692,22 @@ var tracklist = {
             "id": 8,
             "tracks": [
                 {
-                    "src": "oi6nauA77zA",
+                    "src": "MlhLQ53M2Ls",
+                    "artist": "M83",
+                    "title": "Midnight City",
+                },
+                {
+                    "src": "XlTFtCS-TR4",
+                    "artist": "Living In A Box",
+                    "title": "Living In A Box",
+                },
+                {
+                    "src": "dVNdTXEJv1A",
                     "artist": "All Saints",
                     "title": "Pure Shores"
                 },
                 {
-                    "src": "jK8j1SMLjg8",
+                    "src": "5EsXkSUyCEU",
                     "artist": "Amerie",
                     "title": "1 Thing"
                 },
@@ -765,7 +780,17 @@ var tracklist = {
                     "src": "Tdj-TKaiZhw",
                     "artist": "Wham",
                     "title": "Everything She Wants"
-                }
+                },
+                {
+                    "src": "4xqkO3_kmpQ",
+                    "artist": "Lady Gaga",
+                    "title": "Applause",
+                },
+                {
+                    "src": "j40H4nJkik8",
+                    "artist": "Maroon 5 feat. Christina Aguilera",
+                    "title": "Moves Like Jagger",
+                },
             ]
         },
         {

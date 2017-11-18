@@ -7,6 +7,15 @@
 	<link rel="stylesheet" href="./style.css">
 </head>
 <body>
+
+	<div class="blackout"></div>
+
+	<div id="modal">
+		<h4 class="message"></h4>
+		<p class="description"></p>
+		<button></button>
+	</div>
+
 	<div class="track-info">
 		<h3 class="station-name"></h3>
 		<p class="artist-name"></p>
@@ -15,13 +24,17 @@
 	
 	<div id="interface"></div>
 
+	<button id="play_video">Let's play</button>
+
 	<div id="player"></div>
 
-	<audio src="tuning-sound/tuning-2.mp3" id="tuning"></audio>
+	<audio src="" id="tuning" loop></audio>
+	<!-- <audio src="tuning-sound/tuning-2.mp3" id="tuning" loop></audio> -->
 
 	<script src="https://www.youtube.com/iframe_api"></script>
+	<script src="modal.js"></script>
 	<script src="tracklist.js"></script>
 	<script src="positionHelper.js"></script>
-	<script src="script.js"></script>
+	<script src="app.js"></script>
 </body>
 </html>
