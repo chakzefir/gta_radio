@@ -18,6 +18,8 @@
 // 	}
 // };
 
+var development = true;
+
 var view = {
 	nodes: {
 		'stationNameContainer': document.querySelector('.station-name'),
@@ -98,17 +100,21 @@ var playerController = {
 	previousTrackId: 0,
 	currentStation: {},
 	init: function() {
-		player_controller = this;
-		this.player = new YT.Player('player', {
-			events: {
-				'onReady': function(){
-				    player_controller.currentStation = player_controller.getRandomStation();
-				    player_controller.playStation(player_controller.currentStation);
-				},
-				'onStateChange': playerStateHandler,
-				'onError': playerErrorHandler,
-			},
-	    });
+		if(development) {
+            tuningController.pause();
+        } else {
+            player_controller = this;
+            this.player = new YT.Player('player', {
+                events: {
+                    'onReady': function(){
+                        player_controller.currentStation = player_controller.getRandomStation();
+                        player_controller.playStation(player_controller.currentStation);
+                    },
+                    'onStateChange': playerStateHandler,
+                    'onError': playerErrorHandler,
+                },
+            });
+        }
     },
     getRandomStation: function() {
 		var randomStation = Math.floor(Math.random() * stationsList.length);
