@@ -18,7 +18,7 @@
 // 	}
 // };
 
-var development = true;
+var isDevelopment = true;
 
 var view = {
 	nodes: {
@@ -100,7 +100,7 @@ var playerController = {
 	previousTrackId: 0,
 	currentStation: {},
 	init: function() {
-		if(development) {
+		if(isDevelopment) {
             tuningController.pause();
         } else {
             player_controller = this;
@@ -139,6 +139,9 @@ var playerController = {
 			return station.tracks[randomTrackId].src;
     	}
     },
+    generatePlayList: function(argument) {
+        
+    },
     playStation: function(station) {
         var stationId;
         var trackId;
@@ -154,7 +157,7 @@ var playerController = {
     	}
         view.activeStation(stationId);
         trackId = this.getRandomTrackSrc(this.currentStation);
-        console.info(stationId + '/' + trackId);
+        console.info(isDevelopment ? stationId + '/' + trackId : '');
     	return this.player.loadVideoById(trackId, 0, this.prefferableQuality);
     },
     pleasePlay: function() {
