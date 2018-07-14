@@ -1,16 +1,16 @@
-function shuffle(array) {
-  var m = array.length, t, i;
+Array.prototype.shuffle(array) {
+  var itemsQty = array.length, current, index;
 
   // While there remain elements to shuffle…
-  while (m) {
+  while (itemsQty) {
 
     // Pick a remaining element…
-    i = Math.floor(Math.random() * m--);
+    index = Math.floor(Math.random() * itemsQty--);
 
     // And swap it with the current element.
-    t = array[m];
-    array[m] = array[i];
-    array[i] = t;
+    current = array[itemsQty];
+    array[itemsQty] = array[index];
+    array[index] = current;
   }
 
   return array;
