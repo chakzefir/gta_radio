@@ -14,7 +14,7 @@
 // 	}),
 // 	throwError: function (errorText) {
 // 		throw new Error(errorText);
-// 	    document.writeln('Player is broken please connect <a href="mailto:4uk93@mail.ru">chakzefir</a>')
+// 	    document.writeln('Player is broken please connect <a href="mailto:chakzefir@hotmail.com">chakzefir</a>')
 // 	}
 // };
 
