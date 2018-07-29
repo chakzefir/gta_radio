@@ -1,17 +1,11 @@
-function PositionHelper()
-{
-
-}
-
-PositionHelper.prototype.init = function() {
-    var stationsNodes = document.querySelectorAll('.station');
-    var stationsQuantity = stationsNodes.length;
-    var degree = 0;
-    var spanNode;
+export default () => {
+    const stationsNodes = document.querySelectorAll('.station');
+    const stationsQuantity = stationsNodes.length;
+    let degree = 0;
 
     Array.prototype.forEach.call(stationsNodes, function(el, i) {
+        let spanNode = el.querySelector('span');
         degree += 360 / stationsQuantity;
-        spanNode = el.querySelector('span');
 
         el.style.transform = 'rotate(-' + degree + 'deg)';
 
