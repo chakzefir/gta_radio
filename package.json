@@ -4,7 +4,7 @@
   "version": "0.2.0",
   "homepage": "https://github.com/chakzefir/gta_radio",
   "scripts": {
-    "dev": "webpack --watch"
+    "dev": "node server.js & webpack --watch"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

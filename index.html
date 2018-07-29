@@ -20,7 +20,12 @@
 	<audio src="tuning-sound/tuning-2.mp3" id="tuning"></audio>
 
 	<script src="https://www.youtube.com/iframe_api"></script>
-	<script src="tracklist.js"></script>
-	<script src="all.js"></script>
+	<!-- <script src="tracklist.js"></script> -->
+	<script src="./dist/app.js"></script>
+	<script>
+		function onYouTubeIframeAPIReady() {
+  	  		window.App ? window.App.init() : document.body.innerHTML = 'Player is broken please connect <a href="mailto:4uk93@mail.ru">chakzefir</a>';
+		};
+	</script>
 </body>
 </html>

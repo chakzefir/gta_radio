@@ -1,4 +1,4 @@
-{
+const tracklist = {
     "stations": [
         {
             "name": "Blue Ark",
@@ -1236,4 +1236,6 @@
             ]
         }
     ]
-}
+};
+
+export default tracklist
