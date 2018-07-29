@@ -1,9 +1,13 @@
 class TuningController {
-	tuningNode: document.querySelector('#tuning'),
-	static  play() {
+	constructor() {
+		this.tuningNode = document.querySelector('#tuning')
+	}
+	play() {
         this.tuningNode.play();
-    },
-    static pause() {
+    }
+    pause() {
         this.tuningNode.pause();
     }
 }
+
+export default TuningController

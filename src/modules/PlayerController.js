@@ -1,34 +1,40 @@
-import tuningController from "TuningController";
+import TuningController from "./TuningController.js";
+import View from "./View.js";
 
 class PlayerController {
-    player: '',
-    prefferableQuality: 'small',
-    previousTrackId: 0,
-    currentStation: {},
+    constructor(stationsList) {
+        this.player = ''
+        this.prefferableQuality = 'small'
+        this.previousTrackId = 0
+        this.currentStation = {}
+        this.stationsList = stationsList
 
-    constructuctor() {
+        this.view = new View(stationsList);
+        this.tuningController = new TuningController();
+        this.bindEvents()
+
         if(window.App.debug) {
-            tuningController.pause();
+            this.tuningController.pause();
         } else {
             this.player = new YT.Player('player', {
                 events: {
                     'onReady': () => {
-                        player_controller.currentStation = player_controller.getRandomStation();
-                        player_controller.playStation(player_controller.currentStation);
+                        this.currentStation = this.getRandomStation();
+                        this.playStation(this.currentStation);
                     },
-                    'onStateChange': playerStateHandler,
-                    'onError': this.onError,
+                    'onStateChange': this.playerStateHandler.bind(this),
+                    'onError': this.onError.bind(this),
                 },
             });
         }
-    },
+    }
     getRandomStation() {
-        var randomStation = Math.floor(Math.random() * stationsList.length);
-        return stationsList[randomStation];
-    },
+        var randomStation = Math.floor(Math.random() * this.stationsList.length);
+        return this.stationsList[randomStation];
+    }
     getStationById(stationId) {
-        return stationsList[stationId];
-    },
+        return this.stationsList[stationId];
+    }
     getRandomTrackSrc(station) {
         var randomTrackId = Math.floor(Math.random() * station.tracks.length);
 
@@ -41,10 +47,10 @@ class PlayerController {
             this.getRandomTrackSrc(station)
         } else {
             this.previousTrackId = randomTrackId;
-            view.displayTrackInfo(station.name, station.tracks[randomTrackId].artist, station.tracks[randomTrackId].title);
+            this.view.displayTrackInfo(station.name, station.tracks[randomTrackId].artist, station.tracks[randomTrackId].title);
             return station.tracks[randomTrackId].src;
         }
-    },
+    }
     playStation(station) {
         var stationId;
         var trackId;
@@ -58,33 +64,44 @@ class PlayerController {
         } else {
             throw new Error('Invalid type of station');
         }
-        view.activeStation(stationId);
+        this.view.activeStation(stationId);
         trackId = this.getRandomTrackSrc(this.currentStation);
         console.info(stationId + '/' + trackId);
         return this.player.loadVideoById(trackId, 0, this.prefferableQuality);
-    },
+    }
     pleasePlay() {
         this.player.playVideo()
-    },
-    playerStateHandler = function(status) {
-    // console.info('Video status: ' + status.data);
-    switch(status.data) {
-        case 0:
-            this.playStation(this.currentStation)
-            break;
-        case 1:
-            tuningController.pause()
-            console.info('track is playing')
-            break
-        case 2:
-            console.info('track stopped')
-            break
-        case 3:
-            tuningController.play()
-            console.info('track is loading')
-            break
-    },
+    }
+    playerStateHandler(status) {
+        switch(status.data) {
+            case 0:
+                this.playStation(this.currentStation);
+                break;
+            case 1:
+                this.tuningController.pause();
+                console.info('track is playing');
+                break;
+            case 2:
+                console.info('track stopped');
+                break;
+            case 3:
+                this.tuningController.play()
+                console.info('track is loading');
+                break;
+        }
+    }
     onError() {
         this.playStation(this.currentStation);
     }
+    bindEvents() {
+        const stationsNodeList = document.querySelectorAll('.station > span');
+
+        for(var i = 0; i < stationsNodeList.length; i++) {
+            stationsNodeList[i].addEventListener('click', clickEvent => {
+                this.playStation(clickEvent.target.parentElement.getAttribute('data-id'));
+            });
+        }
+    }
 }
+
+export default PlayerController
