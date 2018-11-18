@@ -7,6 +7,7 @@ class View {
             'stationNameContainer': document.querySelector('.station-name'),
             'artistNameContainer': document.querySelector('.artist-name'),
             'trackNameContainer': document.querySelector('.track-name'),
+            'body': document.querySelector('body')
         }
 
         for (let station in stationsList) {
@@ -32,6 +33,12 @@ class View {
             document.querySelector('.station.active').classList.remove('active');
         }
         document.querySelector('.station[data-id="' + stationId + '"]').classList.add('active');
+    }
+    activateApp() {
+        this.nodes.body.classList.remove('deactivated');
+    }
+    deactivateApp() {
+        this.nodes.body.classList.add('deactivated');
     }
 }
 

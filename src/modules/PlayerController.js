@@ -80,9 +80,11 @@ class PlayerController {
             case 1:
                 this.tuningController.pause();
                 console.info('track is playing');
+                this.view.activateApp();
                 break;
             case 2:
                 console.info('track stopped');
+                this.view.deactivateApp();
                 break;
             case 3:
                 this.tuningController.play()
